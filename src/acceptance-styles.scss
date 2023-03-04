@@ -1,0 +1,9 @@
+/* navbar style */
+.navbar {
+    background-color: #c00 !important;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+	background-color: #600;
+}
