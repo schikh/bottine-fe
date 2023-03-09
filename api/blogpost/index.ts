@@ -12,11 +12,6 @@ const httpTrigger: AzureFunction = async function (
 
     switch (req.method) {
       case "GET":
-        context.res = {
-          body: "ggggggggggggggggggggg"
-        };
-
-        return;
         if (req?.query.id || (req?.body && req?.body?.id)) {
           response = {
             blogpost: await db.findItemById(req?.body?.id),
