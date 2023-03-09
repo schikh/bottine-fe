@@ -9,12 +9,12 @@ export class UserInfo {
 		Object.assign(this, init);
 	}
 
-	UserId!: string;
+	UserId: string;
 	Reader: boolean = false;
 	Agent: boolean = false;
 	Supervisor: boolean = false;
 	ItSupport: boolean = false;
-	ExpirationTimeStamp!: string;
+	ExpirationTimeStamp: string;
 
 	get canEdit() {
 		return this.Agent || this.Supervisor || this.ItSupport;

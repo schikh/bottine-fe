@@ -13,7 +13,7 @@ import { Component, Inject } from '@angular/core';
 	</div>
 </div>
 <xyz-spinner-component></xyz-spinner-component>
-	  `
+`
 })
 export class AppComponent {
 	constructor(@Inject(DOCUMENT) private document: Document) {

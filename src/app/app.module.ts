@@ -13,9 +13,11 @@ import { TransactionModule } from './transaction/transaction.module';
 import { GlobalErrorHandler } from './utils/global-error-handler';
 import { NoCacheInterceptor } from './utils/no-cache-interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BlogpostModule } from './blogpost/blogpost.module';
+import { HomeModule } from './home/module';
 const routes: Routes = [
-	{ path: '', pathMatch: 'full', redirectTo: 'transactions/search'},
-	{ path: '**', redirectTo: 'transaction/search' }
+	{ path: '', pathMatch: 'full', redirectTo: 'main/home'},
+	{ path: '**', redirectTo: 'main/home' }
 ];
 
 @NgModule({
@@ -23,9 +25,11 @@ const routes: Routes = [
 		AppComponent
 	],
 	imports: [
-		AccountModule,
+		HomeModule,
+		//AccountModule,
+		BlogpostModule,
 		LayoutModule,
-		TransactionModule,
+		//TransactionModule,
 		BrowserModule,
 		NgbModule,
 		HttpClientModule,
@@ -41,4 +45,4 @@ const routes: Routes = [
 	],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

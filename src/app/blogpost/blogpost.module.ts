@@ -4,32 +4,31 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsModule } from '../utils/utils.module';
-import { TransactionEditComponent } from './edit/transaction-edit.component';
-import { TransactionHierarchyComponent } from './hierarchy/transaction-hierarchy.component';
-import { SearchPanelComponent } from './search/transaction-search-panel.component';
-import { SearchResultComponent } from './search/transaction-search-result.component';
-import { TransactionSearchComponent } from './search/transaction-search.component';
+import { BlogpostEditComponent } from './edit/blogpost-edit.component';
+import { SearchResultComponent } from './search/blogpost-search-result.component';
+import { BlogpostSearchComponent } from './search/blogpost-search.component';
 import { MainAreaComponent } from '../layout/main-area.component';
 import { AuthorizationGuard } from '../account/authorization.gard';
 
 const routes: Routes = [
 	{
-		path: 'transaction',
+		path: 'blogpost',
 		component: MainAreaComponent,
 		children: [
 			{
 				path: 'search',
-				component: TransactionSearchComponent,
+				component: BlogpostSearchComponent,
 				//canActivate: [AuthorizationGuard]
 			},
 			{
-				path: 'hierarchy/:id',
-				component: TransactionHierarchyComponent,
+				path: 'edit/:id',
+				component: BlogpostEditComponent,
 				//canActivate: [AuthorizationGuard]
 			}
 		]
 	}
 ];
+
 
 @NgModule({
   	imports: [
@@ -41,20 +40,17 @@ const routes: Routes = [
 		RouterModule.forChild(routes)
 	],
   	declarations: [
-		TransactionSearchComponent,
-		SearchPanelComponent,
+		BlogpostSearchComponent,
 		SearchResultComponent,
-		TransactionHierarchyComponent,
-		TransactionEditComponent
+		BlogpostEditComponent
 	],
 	entryComponents: [
-		TransactionSearchComponent,
-		TransactionEditComponent
+		BlogpostSearchComponent,
+		BlogpostEditComponent
 	],
 	exports: [
 		RouterModule,
-		SearchPanelComponent,
 		SearchResultComponent
 	]
 })
-export class TransactionModule {}
+export class BlogpostModule {}
