@@ -5,8 +5,42 @@ import { AccountService, UserInfo } from '../account/account.service';
 @Component({
 	selector: 'xyz-header',
 	template: `
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark container">
-  <div class="container-fluid">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span>
+ 				<span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+            </button> 
+			<a class="navbar-brand" href="#">people's brand</a> 
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#" class="">designs</a>
+                </li>
+                <li><a href="#" class="">designers</a>
+                </li>
+                <li><a href="#" class="">buy</a>
+                </li>
+                <li><a href="#" class="">about</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/login" class="">login</a>
+                </li>
+                <li>
+                    <div class="btn-nav"><a class="btn btn-primary btn-small navbar-btn" href="/register">Sign up!</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--/.navbar-collapse -->
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
+
     <a class="navbar-brand" href="#">
       <h3>XXXXXXXXXXXX</h3>
     </a>
@@ -24,6 +58,10 @@ import { AccountService, UserInfo } from '../account/account.service';
           <a class="nav-link" routerLink="blogpost/search">Blogs</a>
         </li>
         
+		<li class="nav-item">
+          <a class="nav-link" routerLink="blogpost/search2">Blogs2</a>
+        </li>
+
 		<li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
@@ -65,7 +103,14 @@ import { AccountService, UserInfo } from '../account/account.service';
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> -->
     </div>
-  </div>
+	<ul class="nav navbar-nav navbar-right">
+                <li><a href="/login" class="">login</a>
+                </li>
+                <li>
+                    <div class="btn-nav"><a class="btn btn-primary btn-small navbar-btn" href="/register">Sign up!</a>
+                    </div>
+                </li>
+            </ul>
 </nav>
 	`
 })

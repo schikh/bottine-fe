@@ -8,8 +8,10 @@
       "methods": [
         "get",
         "post",
+        "put",
         "delete"
-      ]
+      ],
+      "route": "blogpost/{id:length(10,30)?}"
     },
     {
       "type": "http",

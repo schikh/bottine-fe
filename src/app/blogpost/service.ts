@@ -16,23 +16,17 @@ export class BlogpostService {
 	
 	constructor(
 		private httpClient: HttpClient
-	) {
-
-		this.searchBlogpostsChange$.subscribe(x => {
-			console.log(`xxxxxxxxxxxxxxxxxxxx ${x}`);
-		});
-
-	}
+	) {}
 
 	get(id: string): Observable<Blogpost> {
-		return this.httpClient.get<Blogpost>(this.url + id);
+		return this.httpClient.get<Blogpost>(this.url + id).pipe(map(b => new Blogpost(b)));
 	}
 
 	upsert(blogpost: Blogpost): Observable<any> {
 		return this.httpClient.put(this.url + blogpost.id, blogpost);
 	}
 
-	delete(blogpostId: number): Observable<any> {
+	delete(blogpostId: string): Observable<any> {
 		return this.httpClient.delete(this.url + blogpostId);
 	}
 

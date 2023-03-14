@@ -23,7 +23,6 @@ let db = null;
 //     { createdAt: { type: Date,  default: Date.now() } }
 // )
 
-
 const baseConfig = {
   discriminatorKey: "_type", //If you've got a lot of different data types, you could also consider setting up a secondary index here.
   collection: "blogpost"   //Name of the Common Collection
@@ -53,8 +52,7 @@ const blogpostSchema = new  Schema(
   // }
 });
 
-
-const blogpostModel = model("bottine", blogpostSchema, "blogpost");
+export const BlogpostModel = model("bottine", blogpostSchema, "blogpost");
 
 export const init = async () => {
   if (!db) {
@@ -63,7 +61,7 @@ export const init = async () => {
 };
 
 export const addItem = async (doc) => {
-  const modelToInsert = new blogpostModel();
+  const modelToInsert = new BlogpostModel();
   modelToInsert["title"] = doc.title;
   modelToInsert["text"] = doc.text;
 
@@ -71,13 +69,13 @@ export const addItem = async (doc) => {
 };
 
 export const findItemById = async (id) => {
-  return await blogpostModel.findById(id);
+  return await BlogpostModel.findById(id);
 };
 
 export const findItems = async (query = {}) => {
-  return await blogpostModel.find({});
+  return await BlogpostModel.find(query);
 };
 
 export const deleteItemById = async (id) => {
-  return await blogpostModel.findByIdAndDelete(id);
+  return await BlogpostModel.findByIdAndDelete(id);
 };

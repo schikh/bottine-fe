@@ -12,7 +12,8 @@
     "copy": "copy \"dist\\tlx-client\\*\" \"\\\\XS066592\\e$\\websites\\Applications\\talexus-corrections-manuelles\" /Y",
     "deploy": "npm run build && npm run copy",
     "server": "\"\"%PROGRAMFILES%\\IIS Express\\iisexpress.exe\"\" /path:C:\\vsts\\Talexus\\api\\host\\ /port:8080",
-    "start": "ng serve --port 4201 --proxy-config proxy.conf.json"
+    "start": "ng serve --port 4200",
+    "start2": "ng serve --port 4200 --proxy-config proxy.conf.json"
   },
   "private": true,
   "dependencies": {
@@ -24,8 +25,10 @@
     "@angular/platform-browser": "^15.1.0",
     "@angular/platform-browser-dynamic": "^15.1.0",
     "@angular/router": "^15.1.0",
+    "@kolkov/angular-editor": "^3.0.0-beta.0",
     "@ng-bootstrap/ng-bootstrap": "^14.0.1",
     "@popperjs/core": "^2.11.6",
+    "@tinymce/tinymce-angular": "^7.0.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "file-saver": "^2.0.5",

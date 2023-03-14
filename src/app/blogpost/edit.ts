@@ -4,12 +4,15 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { DeviceService } from 'src/app/device/device.service';
 import { DialogService } from 'src/app/shared/dialog.service';
-import { BlogpostService } from '../blogpost.service';
-import { Blogpost } from '../model';
+import { BlogpostService } from './service';
+import { Blogpost } from './model';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
 	template: `
 <form #MyForm="ngForm">
+
+<div class="container">
 
 	<div class="d-flex align-items-center">
 		<div class="flex-grow-1">
@@ -22,32 +25,30 @@ import { Blogpost } from '../model';
 		</div>
 	</div>
 
-	<div class="">
-		<div class="form-group row">
-			<label class="col-3 col-form-label alignright">Titre</label>
-			<div class="col-7">
-				<input type="text" class="form-control"
-				name="titleInput"
-				[(ngModel)]="model.title"
-				required />
-			</div>
-		</div>
+	<div class="mb-3">
+		<label for="title" class="form-label">Texte</label>
+		<input type="text" class="form-control" [placeholder]="'Entrer le titre ici...'" 
+			*ngIf="model"
+			id="title" name="title"
+			[(ngModel)]="model.title"
+			required />
+	</div>
 
-		<div class="form-group row">
-			<label class="col-3 col-form-label alignright">Texte</label>
-			<div class="col-7">
-				<input type="text" class="form-control"
-					name="textInput"
-					[(ngModel)]="model.text"
-					required />
-			</div>
-		</div>
+	<div class="mb-3">
+		<label for="text" class="form-label">Texte</label>
+		<angular-editor [placeholder]="'Entrer le texte ici...'" 
+			*ngIf="model" 
+			[(ngModel)]="model.text" 
+			id="text" name="text" 
+			required>
+		</angular-editor>
 	</div>
 
 	<div class="modal-footer">
-		<button type="button" class="btn btn-primary" [disabled]="!dirty || !MyForm.valid" (click)="apply()">Appliquer</button>
-		<button type="button" class="btn btn-danger" routerLink="/blogposts/search">Annuler</button>		
+		<button type="button" class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
+		<button type="button" class="btn btn-danger" routerLink="/blogpost/search">Fermer</button>		
 	</div>
+</div>
 
 </form>
 	`,
@@ -71,18 +72,20 @@ export class BlogpostEditComponent implements OnInit {
 
 	ngOnInit() {
 		this.parseRouteParameters();
-		this.getBlogpost();
-		this.modelCopy = this.model.clone();
+		this.get();
 	}
 
 	private parseRouteParameters() {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
 	}
 
-	private getBlogpost() {
+	private get() {
 		this.blogpostService
-		.get(this.id)
-		.subscribe((b: Blogpost) => this.model = b);
+		.get(this.id) 
+		.subscribe((b: Blogpost) => {
+			this.modelCopy = b.clone();			  
+			this.model = b;
+			});
 	}
 
 	apply(): void {
@@ -121,4 +124,33 @@ export class BlogpostEditComponent implements OnInit {
 		const c: any = this.modelCopy;
 		return Object.keys(this.model).some(p => m[p] !== c[p]);
 	}
+
+	config: AngularEditorConfig = {
+		editable: true,
+		spellcheck: true,
+		height: '15rem',
+		minHeight: '5rem',
+		placeholder: 'Enter text here...',
+		translate: 'no',
+		defaultParagraphSeparator: 'p',
+		defaultFontName: 'Arial',
+		toolbarHiddenButtons: [
+		  ['bold']
+		  ],
+		customClasses: [
+		  {
+			name: "quote",
+			class: "quote",
+		  },
+		  {
+			name: 'redText',
+			class: 'redText'
+		  },
+		  {
+			name: "titleText",
+			class: "titleText",
+			tag: "h1",
+		  },
+		]
+	  };
 }

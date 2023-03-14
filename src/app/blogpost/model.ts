@@ -17,7 +17,10 @@ export class Blogpost {
 		Object.assign(this, init);
 	}
 
-	id: number;
+	get id(): string {
+		return (<any>this)['_id'];
+	}
+
 	title: string;
 	text: string;
 	createdAt: string;

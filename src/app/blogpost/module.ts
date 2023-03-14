@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsModule } from '../utils/utils.module';
-import { BlogpostEditComponent } from './edit/blogpost-edit.component';
-import { SearchResultComponent } from './search/blogpost-search-result.component';
-import { BlogpostSearchComponent } from './search/blogpost-search.component';
+import { BlogpostEditComponent } from './edit';
+import { SearchResultComponent } from './list';
+import { BlogpostSearchComponent } from './search';
 import { MainAreaComponent } from '../layout/main-area.component';
 import { AuthorizationGuard } from '../account/authorization.gard';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 const routes: Routes = [
 	{
@@ -21,6 +22,11 @@ const routes: Routes = [
 				//canActivate: [AuthorizationGuard]
 			},
 			{
+				path: 'search2',
+				component: BlogpostSearchComponent,
+				//canActivate: [AuthorizationGuard]
+			},
+			{
 				path: 'edit/:id',
 				component: BlogpostEditComponent,
 				//canActivate: [AuthorizationGuard]
@@ -29,13 +35,13 @@ const routes: Routes = [
 	}
 ];
 
-
 @NgModule({
   	imports: [
 		CommonModule,
 		FormsModule,
 		NgbModule,
 		UtilsModule,
+		AngularEditorModule,
 		RouterModule,
 		RouterModule.forChild(routes)
 	],
@@ -50,6 +56,7 @@ const routes: Routes = [
 	],
 	exports: [
 		RouterModule,
+		AngularEditorModule,
 		SearchResultComponent
 	]
 })

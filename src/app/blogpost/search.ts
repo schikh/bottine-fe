@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, startWith, switchMap, shareReplay, tap } from 'rxjs/operators';
-import { Blogpost, BlogpostsFilter } from '../model';
-import { BlogpostService } from '../blogpost.service';
+import { Blogpost, BlogpostsFilter } from './model';
+import { BlogpostService } from './service';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 import { AccountService } from 'src/app/account/account.service';
@@ -105,7 +105,6 @@ export class BlogpostSearchComponent implements OnInit {
 
 		list$.subscribe(	
 			(x: any) => { 
-				var xxx = x.blogposts;
 				return  this.calculatePagingInfo(x.totalRecords); 
 			}
 		);
