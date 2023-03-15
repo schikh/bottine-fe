@@ -39,40 +39,40 @@ import { AccountService, UserInfo } from '../account/account.service';
     </div>
 </div>
 
-<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
-
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark stipes">
     <a class="navbar-brand" href="#">
-      <h3>XXXXXXXXXXXX</h3>
+        <img src="/assets/logo.png" class="mx-2" style="width:50px;">
+        <img src="/assets/logo-text.png" class="mx-2" style="width:200px;">
     </a>
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="main/home">Home</a>
-        </li>
-        
-		<li class="nav-item">
-          <a class="nav-link" routerLink="blogpost/search">Blogs</a>
-        </li>
-        
-		<li class="nav-item">
-          <a class="nav-link" routerLink="blogpost/search2">Blogs2</a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="main/home">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" routerLink="blogpost/search">Blogs</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" routerLink="blogpost/search2">Blogs2</a>
+            </li>
 
-		<li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
         
 		<li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1">Disabled</a>
