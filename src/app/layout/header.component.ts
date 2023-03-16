@@ -5,7 +5,7 @@ import { AccountService, UserInfo } from '../account/account.service';
 @Component({
 	selector: 'xyz-header',
 	template: `
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!-- <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span>
@@ -35,9 +35,8 @@ import { AccountService, UserInfo } from '../account/account.service';
                 </li>
             </ul>
         </div>
-        <!--/.navbar-collapse -->
     </div>
-</div>
+</div> -->
 
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark stipes">
     <a class="navbar-brand" href="#">
@@ -57,13 +56,13 @@ import { AccountService, UserInfo } from '../account/account.service';
             <li class="nav-item">
                 <a class="nav-link" routerLink="blogpost/search">Blogs</a>
             </li>
-            
+
             <li class="nav-item">
-                <a class="nav-link" routerLink="blogpost/search2">Blogs2</a>
+                <a class="nav-link" routerLink="blogpost/edit">Ajouter Blog</a>
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown">
                 Dropdown
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

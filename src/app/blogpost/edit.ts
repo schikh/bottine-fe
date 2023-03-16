@@ -80,12 +80,18 @@ export class BlogpostEditComponent implements OnInit {
 	}
 
 	private get() {
-		this.blogpostService
-		.get(this.id) 
-		.subscribe((b: Blogpost) => {
-			this.modelCopy = b.clone();			  
-			this.model = b;
-			});
+		if (this.id) {
+            this.blogpostService
+                .get(this.id) 
+                .subscribe((b: Blogpost) => {
+                    this.modelCopy = b.clone();			  
+                    this.model = b;
+                });
+		} else {
+            const blogpost = new Blogpost();
+            this.modelCopy = blogpost.clone();			  
+            this.model = blogpost;
+		}
 	}
 
 	apply(): void {

@@ -23,7 +23,11 @@ export class BlogpostService {
 	}
 
 	upsert(blogpost: Blogpost): Observable<any> {
-		return this.httpClient.put(this.url + blogpost.id, blogpost);
+		if (blogpost.id) {
+			return this.httpClient.post('api/blogpost/' + blogpost.id, blogpost);
+		} else {
+			return this.httpClient.put('api/blogpost/', blogpost);
+		}
 	}
 
 	delete(blogpostId: string): Observable<any> {

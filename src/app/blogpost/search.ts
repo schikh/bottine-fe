@@ -49,39 +49,33 @@ import { AccountService } from 'src/app/account/account.service';
 			<i class="bi bi-search"></i>
 		</button>
 	</form> -->
-	
-
-
 
 <div class="container">
-	<h1 class="me-auto">Blogposts</h1>
-
-<div class="d-flex">
-	<div class="flex-grow-1 ml-3 flex-column">
-		<div class="search-result-table-area">
-			<xyz-search-result [model]="model" [blogposts$]="blogposts$">
-			</xyz-search-result>
-		</div>
-		<div class="d-flex justify-content-between mt-3">
-			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-outline-primary" style="width: 160px"
-					(click)="previousPage()" [disabled]="!model.previousPageAvailable">
-					<i class="fas fa-caret-left fa-lg mr-1"></i>
-					Page précédente
-				</button>
-				<button type="button" class="btn btn-muted" style="width: 150px">Page {{model.page}} \\ {{model.totalPages}}</button>
-				<button type="button" class="btn btn-outline-primary" style="width: 160px"
-					(click)="nextPage()" [disabled]="!model.nextPageAvailable">
-					Page suivante
-					<i class="fas fa-caret-right fa-lg ml-1"></i>
-				</button>
+	<h1 class="me-auto mt-2">Blogposts</h1>
+	<div class="d-flex">
+		<div class="flex-grow-1 ml-3 flex-column">
+			<div class="search-result-table-area">
+				<xyz-search-result [model]="model" [blogposts$]="blogposts$">
+				</xyz-search-result>
+			</div>
+			<div class="d-flex justify-content-between mt-3">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-outline-primary" style="width: 160px"
+						(click)="previousPage()" [disabled]="!model.previousPageAvailable">
+						<i class="fas fa-caret-left fa-lg mr-1"></i>
+						Page précédente
+					</button>
+					<button type="button" class="btn btn-muted" style="width: 150px">Page {{model.page}} \\ {{model.totalPages}}</button>
+					<button type="button" class="btn btn-outline-primary" style="width: 160px"
+						(click)="nextPage()" [disabled]="!model.nextPageAvailable">
+						Page suivante
+						<i class="fas fa-caret-right fa-lg ml-1"></i>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-</div>
-
 `
 })
 export class BlogpostSearchComponent implements OnInit {
@@ -101,7 +95,6 @@ export class BlogpostSearchComponent implements OnInit {
 	ngOnInit(): void {
 		this.restoreFilter();
 		const list$ = this.blogpostService.searchBlogposts2(new BlogpostsFilter({}));
-
 
 		list$.subscribe(	
 			(x: any) => { 

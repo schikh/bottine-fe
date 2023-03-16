@@ -1,7 +1,18 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import * as db from "./db";
 
-const httpTrigger: AzureFunction = async function (context: Context,  req: HttpRequest): Promise<void> {
+const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+    context.log(`GET 00`);
+    context.res = { 
+        status: 501,
+        headers: { 'Content-Type': 'application/json' },
+        body: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' 
+      };
+
+    context.log(`GET 01`);
+
+    return;
+
     try {
         let response = null;
 
@@ -15,14 +26,22 @@ const httpTrigger: AzureFunction = async function (context: Context,  req: HttpR
             case "GET":
                 var id = context.bindingData.id;
                 if (id) {
+                    context.log(`GET 1`);
                     response = await db.findItemById(id);
-                //} else if (req?.query.id || (req?.body && req?.body?.id)) {
-                //     response = await db.findItemById(req?.body?.id);
+                    //} else if (req?.query.id || (req?.body && req?.body?.id)) {
+                    //     response = await db.findItemById(req?.body?.id);
                 } else {
+                    context.log(`GET 2`);
                     const dbQuery = req?.query?.dbQuery || (req?.body && req?.body?.dbQuery);
+
+
+
+
+
+                    //response = await db.findItems(dbQuery); // ?????????????????
                     response = {
-                        blogposts: await db.findItems(dbQuery), // ?????????????????
-                    };      
+                        xxx: await db.findItems(dbQuery) // ?????????????????
+                    };
                 }
                 break;
             case "PUT":
@@ -35,7 +54,7 @@ const httpTrigger: AzureFunction = async function (context: Context,  req: HttpR
                 if (!entry) {
                     throw Error("No document found");
                 }
-                
+
                 entry.title = req.body.title;
                 entry.text = req.body.text;
                 response = await entry.save();

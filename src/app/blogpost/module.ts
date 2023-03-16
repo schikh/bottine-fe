@@ -22,15 +22,15 @@ const routes: Routes = [
 				//canActivate: [AuthorizationGuard]
 			},
 			{
-				path: 'search2',
-				component: BlogpostSearchComponent,
+				path: 'edit',
+				component: BlogpostEditComponent,
 				//canActivate: [AuthorizationGuard]
 			},
 			{
 				path: 'edit/:id',
 				component: BlogpostEditComponent,
 				//canActivate: [AuthorizationGuard]
-			}
+			}			
 		]
 	}
 ];

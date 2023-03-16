@@ -11,12 +11,7 @@
         "put",
         "delete"
       ],
-      "route": "blogpost/{id:length(10,30)?}"
-    },
-    {
-      "type": "http",
-      "direction": "out",
-      "name": "res"
+      "route": "blogpost/{id:length(1,30)?}"
     }
   ],
   "scriptFile": "../dist/blogpost/index.js"

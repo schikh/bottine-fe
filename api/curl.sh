@@ -13,7 +13,7 @@ func azure functionapp logstream bottine-func
 
 
 
-curl -X GET  http://localhost:7071/api/blogpost -H "Content-Type: application/json" --verbose
+curl -X GET  http://localhost:7071/api/blogpost/6406eccf41639f56577d7411 -H "Content-Type: application/json" --verbose
 curl -X POST http://localhost:7071/api/blogpost -d "{""document"":{""text"":""John"",""title"":""John""}}"  -H "Content-Type: application/json" --verbose
 
 curl -X GET  https://bottine-func.azurewebsites.net/api/blogpost?code=AAh9hWnMNlNPmMhTHCBq0kOt_Lk-GerVqa5yyvQXNQ7eAzFuPj3cBg== -H "Content-Type: application/json" --verbose
