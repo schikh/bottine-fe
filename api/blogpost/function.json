@@ -12,6 +12,11 @@
         "delete"
       ],
       "route": "blogpost/{id:length(1,30)?}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
     }
   ],
   "scriptFile": "../dist/blogpost/index.js"

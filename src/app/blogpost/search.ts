@@ -51,7 +51,7 @@ import { AccountService } from 'src/app/account/account.service';
 	</form> -->
 
 <div class="container">
-	<h1 class="me-auto mt-2">Blogposts</h1>
+	<h1 class="me-auto my-5">Blogposts</h1>
 	<div class="d-flex">
 		<div class="flex-grow-1 ml-3 flex-column">
 			<div class="search-result-table-area">
@@ -94,7 +94,7 @@ export class BlogpostSearchComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.restoreFilter();
-		const list$ = this.blogpostService.searchBlogposts2(new BlogpostsFilter({}));
+		const list$ = this.blogpostService.getBlogposts$();
 
 		list$.subscribe(	
 			(x: any) => { 
@@ -106,6 +106,8 @@ export class BlogpostSearchComponent implements OnInit {
 		    map(x => x.blogposts),
 			shareReplay(1)
 		);
+
+		this.blogpostService.searchBlogposts(new BlogpostsFilter({}));
 	}
 
 	onExecuteSearch(): void {

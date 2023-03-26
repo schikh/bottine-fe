@@ -20,6 +20,10 @@ export class Blogpost {
 	get id(): string {
 		return (<any>this)['_id'];
 	}
+	
+	set id(value: string) {
+		(<any>this)['_id'] = value;
+	}
 
 	title: string;
 	text: string;

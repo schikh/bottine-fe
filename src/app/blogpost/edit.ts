@@ -44,7 +44,10 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 		</angular-editor>
 	</div>
 
+	<app-upload-images [blogpostId]="id"></app-upload-images>
+
 	<div class="modal-footer">
+		<button type="button" class="btn btn-danger" [routerLink]="['/blogpost', 'read', model.id]">Visualiser</button>		
 		<button type="button" class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
 		<button type="button" class="btn btn-danger" routerLink="/blogpost/search">Fermer</button>		
 	</div>
@@ -89,6 +92,7 @@ export class BlogpostEditComponent implements OnInit {
                 });
 		} else {
             const blogpost = new Blogpost();
+			blogpost.id = (new Date()).toISOString().replace(/[^0-9]/g, '');
             this.modelCopy = blogpost.clone();			  
             this.model = blogpost;
 		}
@@ -96,10 +100,10 @@ export class BlogpostEditComponent implements OnInit {
 
 	apply(): void {
 		const model = this.model.clone();
-
 		this.blogpostService.upsert(model).subscribe(
 			() => {
-				this.dialogService.success('Blog ajouté');
+				this.dialogService.success('Blog sauvegardé');
+				this.model = model;
 			},
 			(error: any) => {
 				error = error.error || error;

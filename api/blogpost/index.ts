@@ -2,17 +2,6 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import * as db from "./db";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    context.log(`GET 00`);
-    context.res = { 
-        status: 501,
-        headers: { 'Content-Type': 'application/json' },
-        body: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' 
-      };
-
-    context.log(`GET 01`);
-
-    return;
-
     try {
         let response = null;
 
@@ -26,33 +15,23 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
             case "GET":
                 var id = context.bindingData.id;
                 if (id) {
-                    context.log(`GET 1`);
                     response = await db.findItemById(id);
                     //} else if (req?.query.id || (req?.body && req?.body?.id)) {
                     //     response = await db.findItemById(req?.body?.id);
                 } else {
-                    context.log(`GET 2`);
                     const dbQuery = req?.query?.dbQuery || (req?.body && req?.body?.dbQuery);
-
-
-
-
-
-                    //response = await db.findItems(dbQuery); // ?????????????????
-                    response = {
-                        xxx: await db.findItems(dbQuery) // ?????????????????
-                    };
+                    response = { blogposts: await db.findItems(dbQuery) }; // ?????????????????
                 }
                 break;
             case "PUT":
                 var id = context.bindingData.id;
                 if (!id) {
-                    throw Error("No document found");
+                    throw Error("No document id given");
                 }
 
                 var entry = await db.findItemById(id);
                 if (!entry) {
-                    throw Error("No document found");
+                    throw Error(`Document '${id}' not found`);
                 }
 
                 entry.title = req.body.title;
@@ -60,10 +39,10 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
                 response = await entry.save();
                 break;
             case "POST":
-                if (!req?.body?.document) {
+                if (!req?.body) {
                     throw Error("No document found");
                 }
-                response = await db.addItem(req?.body?.document);
+                response = await db.addItem(req?.body);
                 break;
             case "DELETE":
                 if (!req?.query?.id && !(req?.body && req?.body?.id)) {
@@ -80,6 +59,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         };
 
     } catch (err) {
+        context.log(`*** Err: ${err}`);
         context.log(`*** Error throw: ${JSON.stringify(err)}`);
         context.res = {
             status: 501,

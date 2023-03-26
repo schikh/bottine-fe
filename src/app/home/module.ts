@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MainAreaComponent } from '../layout/main-area.component';
 import { UtilsModule } from '../utils/utils.module';
 import { PageComponent } from './page';
+import { BlogpostModule } from "../blogpost/module";
 
 const routes: Routes = [
 	{
@@ -22,22 +23,23 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  	imports: [
-		// CommonModule,
-		// FormsModule,
-		NgbModule,
-		// UtilsModule,
-		RouterModule,
-		RouterModule.forChild(routes)
-	],
-  	declarations: [
-		PageComponent
-	],
-	entryComponents: [
-		PageComponent
-	],
-	exports: [
-		RouterModule
-	]
+    declarations: [
+        PageComponent
+    ],
+    entryComponents: [
+        PageComponent
+    ],
+    exports: [
+        RouterModule
+    ],
+    imports: [
+        // CommonModule,
+        // FormsModule,
+        NgbModule,
+        // UtilsModule,
+        RouterModule,
+        RouterModule.forChild(routes),
+        BlogpostModule
+    ]
 })
 export class HomeModule {}

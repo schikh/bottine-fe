@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 	template: `
 <div class="main-area-container">
 	<div class="main-area">
-		<div class="container-fluid">
+		<!-- <div class="container-fluid"> -->
 			<router-outlet></router-outlet>
-		</div>
+		<!-- </div> -->
 	</div>
 </div>
 	`

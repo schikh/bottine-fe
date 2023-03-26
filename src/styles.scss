@@ -7,6 +7,7 @@
 html,
 body {
     font-family: "Raleway", arial, sans-serif;
+	color: 	#151821;
 	// font-size: 14px;
 	// font-family: 'Arial';
 	// -webkit-font-smoothing: antialiased;
@@ -55,6 +56,7 @@ h1 {
 	// width: 90px;
 	// border: 1px solid rgba(0,0,0,.125);
 	// font-weight: bold;
+	margin-left: 5px;
 }
 
 
@@ -173,4 +175,27 @@ h1 {
 
 .stipes {
 	background-image: url("assets/colors-band.png");
+	background-repeat: no-repeat;
+}
+
+.main-img {
+	//position: relative;
+	height: 400px;
+	margin-top: 0px;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0.2)) , url("assets/group.png");
+	//background-repeat: no-repeat;
+	background-repeat: repeat;
+	//background-size: cover;
+	background-size : contain;
+	//background-size : 500px  500px;
+	//background-attachment: fixed;
+	//background-position: 0px -250px;
+	z-index: 0;
+	color: yellow;
+}
+
+.main-title {
+	font-family: Lobster;
+	font-size: 3em;
+	text-shadow: 2px 2px 2px #a0a0a0;
 }

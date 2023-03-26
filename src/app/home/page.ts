@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 
 @Component({
 	template: `
+<div class="main-img"></div>
+
 <div class="container">
 <div class="row">
 
-<h1>Bienvenue sur le site des z’amis d’el bottine qui bique !</h1>
+<h1 class="main-title my-4">Bienvenue sur le site des z’amis d’el bottine qui bique !</h1>
 
-<div class="col-8">
+<div class="col-9">
 	<p>	
 	Créée en janvier 2020 à Mons, l’association les z’amis d’el bottine qui bique est affiliée à la Fédération Française de la Randonnée Pédestre (FFRP). Chaque semaine, c’est adhérents se réunissent pour marcher une diaine de km dans la région de Mons.
 	</p>	
@@ -46,7 +48,11 @@ import { Component } from '@angular/core';
 	</p>
 </div>
 
-<div class="col-4">
+<div class="col-3">
+	<div class="ms-3">
+		<h3 class="">Evénements</h3>
+		<xyz-blogpost-summary></xyz-blogpost-summary>
+	</div>
 </div>
 
 </div>

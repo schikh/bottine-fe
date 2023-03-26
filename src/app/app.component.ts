@@ -11,6 +11,11 @@ import { Component, Inject } from '@angular/core';
 	<div class="main-content">
 	  <router-outlet></router-outlet>
 	</div>
+	<footer class="text-center text-uppercase py-5">
+        <div class="copyright pt-4 text-muted text-center">
+          <p>&copy; 2022 YOUR-DOMAIN | Created by <a href="https://firmbee.com/solutions/free-invoicing-app-billing-software/" title="Firmbee - Free Invoicing App" target="_blank">Firmbee.com</a> </p>
+      </div>
+    </footer>	
 </div>
 <xyz-spinner-component></xyz-spinner-component>
 `

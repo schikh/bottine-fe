@@ -79,3 +79,12 @@ req: {
 	"query": { "page":"1","pageSize":"100","totalPages":"0","previousPageAvailable":"false","nextPageAvailable":"false" },
 	"params": {}
 }
+
+
+
+#!/bin/bash
+FUNCTION_URL="https://YOUR-RESOURCE-NAME.azurewebsites.net/api/upload?code=YOUR-FUNCTION-KEY"
+
+curl -X POST -F "filename=@README.md" -H "Content-Type: text/plain" "http://localhost:7071/api/upload&filename=test-file.txt&username=jsmith" --verbose
+
+
