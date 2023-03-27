@@ -1,9 +1,12 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import { BlobServiceClient } from "@azure/storage-blob";
+import { getBlobPaths } from "../upload/azure-storage-blob-sas-url";
 import * as db from "./db";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     try {
         let response = null;
+        let id = null;
 
         context.log(`====================================================`);
         context.log(`req: ${JSON.stringify(req)}`);
@@ -13,18 +16,18 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
         switch (req.method) {
             case "GET":
-                var id = context.bindingData.id;
+                id = context.bindingData.id;
                 if (id) {
-                    response = await db.findItemById(id);
-                    //} else if (req?.query.id || (req?.body && req?.body?.id)) {
-                    //     response = await db.findItemById(req?.body?.id);
+                    const blogPost = await db.findItemById(id);
+                    blogPost.paths = await getBlobPaths('blogposts-blobs', id);
+                    response = blogPost;
                 } else {
                     const dbQuery = req?.query?.dbQuery || (req?.body && req?.body?.dbQuery);
                     response = { blogposts: await db.findItems(dbQuery) }; // ?????????????????
-                }
+                }          
                 break;
             case "PUT":
-                var id = context.bindingData.id;
+                id = context.bindingData.id;
                 if (!id) {
                     throw Error("No document id given");
                 }

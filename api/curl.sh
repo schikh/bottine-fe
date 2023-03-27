@@ -88,3 +88,8 @@ FUNCTION_URL="https://YOUR-RESOURCE-NAME.azurewebsites.net/api/upload?code=YOUR-
 curl -X POST -F "filename=@README.md" -H "Content-Type: text/plain" "http://localhost:7071/api/upload&filename=test-file.txt&username=jsmith" --verbose
 
 
+
+
+
+
+curl -X GET  http://localhost:7071/api/auth --verbose

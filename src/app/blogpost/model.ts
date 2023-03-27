@@ -27,6 +27,7 @@ export class Blogpost {
 
 	title: string;
 	text: string;
+	paths: string[];
 	createdAt: string;
 
 	get timeStamp(): string {

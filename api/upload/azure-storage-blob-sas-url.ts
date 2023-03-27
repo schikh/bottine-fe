@@ -1,29 +1,40 @@
-import {BlobSASPermissions, BlobServiceClient, SASProtocol} from "@azure/storage-blob";
+import { BlobSASPermissions, BlobServiceClient, ContainerClient, SASProtocol } from "@azure/storage-blob";
 
-/**
- * Utility method for generating a secure short-lived SAS URL for a blob.
- * To know more about SAS URLs, see: https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview
- * @connectionString connectionString - string
- * @param containerName - string (User's alias)
- * @param filename - string
- */
 export const generateReadOnlySASUrl = async (connectionString: string, containerName: string, filename: string) => {
 
     const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blobClient = containerClient.getBlobClient(filename);
-    const SIXTY_MINUTES = 60 * 60 * 1000;
-    const NOW = new Date();
 
     const accountSasTokenUrl = await blobClient.generateSasUrl({
-      startsOn: NOW,
-      expiresOn: new Date(new Date().valueOf() + (SIXTY_MINUTES)),
-      permissions: BlobSASPermissions.parse("r"), // Read only permission to the blob
-      protocol: SASProtocol.Https, // Only allow HTTPS access to the blob
+        startsOn: new Date(),
+        expiresOn: new Date(new Date().valueOf() + (60 * 60 * 1000)),
+        permissions: BlobSASPermissions.parse("r"), // Read only permission to the blob
+        protocol: SASProtocol.Https, // Only allow HTTPS access to the blob
     });
 
     return {
-        accountSasTokenUrl, 
+        accountSasTokenUrl,
         storageAccountName: blobClient.accountName
     };
-  };
+};
+
+export const getContainerClient = (containerName: string) => {
+    const connectionString = process.env.schistorageaccount01_STORAGE;
+    // const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
+    // const containerClient = blobServiceClient.getContainerClient(containerName);
+    return new ContainerClient(connectionString, containerName); 
+};
+
+export const getBlobPaths = async (containerName: string, path: string) => {
+    const filesList = [];
+    const containerClient = getContainerClient(containerName);
+    //let iter = await containerClient.listBlobsByHierarchy("/", { prefix: path + "/" });
+    //let iter = await containerClient.listBlobsFlat({ prefix: path + "/" });
+    for await (const blob of containerClient.listBlobsFlat({ prefix: path + "/" })) {
+        //let blobClient = await containerClient.getBlobClient(blob.name);
+        filesList.push(`https://schistorageaccount01.blob.core.windows.net/${containerName}/${blob.name}`);
+        //console.log(`https://schistorageaccount01.blob.core.windows.net/${blob.name}   ${blobClient.url}`);
+    }
+    return filesList;
+};

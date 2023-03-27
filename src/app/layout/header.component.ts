@@ -72,6 +72,13 @@ import { AccountService, UserInfo } from '../account/account.service';
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
             </li>
+
+            <li class="nav-item">
+                <a href="/auth/facebook" class="waves-effect waves-light btn social facebook">
+                    <i class="fa fa-facebook"></i>facebook
+                </a>
+            </li>
+
         
 		<li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1">Disabled</a>
@@ -103,13 +110,13 @@ import { AccountService, UserInfo } from '../account/account.service';
       </form> -->
     </div>
 	<ul class="nav navbar-nav navbar-right">
-                <li><a href="/login" class="">login</a>
-                </li>
-                <li>
-                    <div class="btn-nav"><a class="btn btn-primary btn-small navbar-btn" href="/register">Sign up!</a>
-                    </div>
-                </li>
-            </ul>
+        <li><a href="/login" class="">login</a>
+        </li>
+        <li>
+            <div class="btn-nav"><a class="btn btn-primary btn-small navbar-btn" href="/register">Sign up!</a>
+            </div>
+        </li>
+    </ul>
 </nav>
 	`
 })

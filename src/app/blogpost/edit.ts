@@ -47,7 +47,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 	<app-upload-images [blogpostId]="id"></app-upload-images>
 
 	<div class="modal-footer">
-		<button type="button" class="btn btn-danger" [routerLink]="['/blogpost', 'read', model.id]">Visualiser</button>		
+		<button type="button" class="btn btn-danger" [routerLink]="['/blogpost', 'read', model?.id]">Visualiser</button>		
 		<button type="button" class="btn btn-primary" [disabled]="!model || !dirty || !MyForm.valid" (click)="apply()">Sauver</button>
 		<button type="button" class="btn btn-danger" routerLink="/blogpost/search">Fermer</button>		
 	</div>
@@ -71,7 +71,7 @@ export class BlogpostEditComponent implements OnInit {
 
 	private modelCopy: Blogpost;
 	model: Blogpost;
-	id: string;
+	id: string = null;
 
 	ngOnInit() {
 		this.parseRouteParameters();
