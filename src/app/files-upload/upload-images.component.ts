@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FileUploadService } from './file-upload.service';
@@ -6,7 +6,7 @@ import { FileUploadService } from './file-upload.service';
 @Component({
     selector: 'app-upload-images',
     template: `
-<div *ngFor="let progressInfo of progressInfos" class="mb-2">
+<!-- <div *ngFor="let progressInfo of progressInfos" class="mb-2">
   <span>{{ progressInfo.fileName }}</span>
   <div class="progress">
     <div class="progress-bar progress-bar-info"
@@ -15,9 +15,11 @@ import { FileUploadService } from './file-upload.service';
       {{ progressInfo.value }}%
     </div>
   </div>
-</div>
+</div> -->
 
-<div class="row">
+<input #fileInput type="file" (change)="selectFiles($event)" accept="image/*" multiple style="display: none;" />
+
+<!-- <div class="row">
   <div class="col-8">
     <label class="btn btn-default p-0">
       <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
@@ -29,26 +31,40 @@ import { FileUploadService } from './file-upload.service';
       Upload
     </button>
   </div>
-</div>
+</div> -->
 
-<div>
-  <img *ngFor='let preview of previews' [src]="preview" class="preview">
-</div>
+<!-- <div>
+  <img *ngFor='let preview of previews' [src]="preview" class="preview" style="width: 200px; height: 200px; object-fit: cover;">
+</div> -->
 
-<div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
-  <ul *ngFor="let msg of message; let i = index">
-    <li>{{ msg }}</li>
-  </ul>
-</div>
+<!-- <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
+    <ul *ngFor="let msg of message; let i = index">
+        <li>{{ msg }}</li>
+    </ul>
+</div> -->
 
-<div class="card mt-3">
+<!-- <div class="card mt-3">
   <div class="card-header">List of Images</div>
   <ul class="list-group list-group-flush" *ngFor="let image of imageInfos | async">
-    <li class="list-group-item">
+    <li class="list-group-item debug">
       <p><a href="{{ image.url }}">{{ image.name }}</a></p>
-      <img src="{{ image.url }}" alt="{{ image.name }}" height="80px" />
+      <img src="{{ image.url }}" alt="{{ image.name }}" style="width: 100px; height: 100px; object-fit: cover;" />
     </li>
   </ul>
+</div> -->
+
+<div class="w-auto" (click)="onClick()" style="min-height: 200px; background-color: #eee;">
+    <ng-container *ngIf="previews && previews.length > 0; then showImages; else showText"></ng-container>
+    <ng-template #showText>
+        <div class="d-flex align-items-center justify-content-center" (click)="onClick()" style="min-height: 200px;background-color: #eee;">
+            <span class="text-muted">
+                <i class="bi bi-file-earmark-arrow-up-fill"></i> Ajouter des photos
+            </span>
+        </div>
+    </ng-template>
+    <ng-template #showImages>
+        <img *ngFor='let preview of previews' [src]="preview" class="preview" style="width: 200px; height: 200px; object-fit: cover;" />
+    </ng-template>    
 </div>
 `,
     styles: ['.preview { max-width: 200px; }']
@@ -60,8 +76,11 @@ export class UploadImagesComponent implements OnInit {
     message: string[] = [];
 
     previews: string[] = [];
-    imageInfos?: Observable<any>;
+    //imageInfos?: Observable<any>;
 
+    @ViewChild('fileInput', {static: true})
+	fileInput: ElementRef;
+    
     @Input()
     blogpostId: string;
 
@@ -88,6 +107,7 @@ export class UploadImagesComponent implements OnInit {
                 };
 
                 reader.readAsDataURL(this.selectedFiles[i]);
+                this.upload(i, this.selectedFiles[i]);
             }
         }
     }
@@ -115,13 +135,19 @@ export class UploadImagesComponent implements OnInit {
         }
     }
 
-    uploadFiles(): void {
-        this.message = [];
+    // uploadFiles(): void {
+    //     this.message = [];
 
-        if (this.selectedFiles) {
-            for (let i = 0; i < this.selectedFiles.length; i++) {
-                this.upload(i, this.selectedFiles[i]);
-            }
-        }
-    }
+    //     if (this.selectedFiles) {
+    //         for (let i = 0; i < this.selectedFiles.length; i++) {
+    //             this.upload(i, this.selectedFiles[i]);
+    //         }
+    //     }
+    // }
+
+    onClick(): void {
+		const input = this.fileInput.nativeElement;
+		input.value = null;
+		input.click();
+	}
 }

@@ -30,19 +30,14 @@ const baseConfig = {
 
 const blogpostSchema = new Schema(
     {
-        title: {
-            type: String,
-            required: [true, 'title is required'],
-        },
-        text: {
-            type: String,
-            required: [true, 'text is required'],
-        },
-        createdAt: { type: Date, default: Date.now() },
-        paths: [{
-            type: String,
-            required: [true, 'text is required'],
-        }]
+        title:     { type: String, require: true },
+        text:      { type: String, require: true },
+        paths:     [{ type: String, require: true }],
+        createdAt: { type: Date, default: Date.UTC, index: true },
+        createdBy: { type: String, require: true },
+        updatedAt: { type: Date },
+        updatedBy: { type: String }
+        
         // children: [{
         //     familyName: String,
         //     firstName: String,
@@ -66,10 +61,27 @@ export const init = async () => {
 
 export const addItem = async (doc) => {
     const modelToInsert = new BlogpostModel();
-    modelToInsert["title"] = doc.title;
-    modelToInsert["text"] = doc.text;
-
+    modelToInsert["title"]     = doc.title;
+    modelToInsert["text"]      = doc.text;
+    modelToInsert["paths"]     = doc.paths;
+    modelToInsert["createdAt"] = doc.createdAt;
+    modelToInsert["createdBy"] = doc.createdBy;
+    modelToInsert["updatedAt"] = doc.updatedAt;
+    modelToInsert["updatedBy"] = doc.updatedBy;
     return await modelToInsert.save();
+};
+
+export const updateItem = async (doc) => {
+    var entry = await db.findItemById(doc._id);
+    if (!entry) {
+        throw Error(`Document '${doc._id}' not found`);
+    }   
+    entry.title = doc.title;
+    entry.text = doc.text;
+    entry.paths = doc.paths;
+    entry.updatedAt = Date.UTC;
+    entry.updatedBy = doc.updatedBy;
+    return await entry.save();
 };
 
 export const findItemById = async (id) => {

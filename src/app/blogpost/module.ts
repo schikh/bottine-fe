@@ -7,40 +7,29 @@ import { UtilsModule } from '../utils/utils.module';
 import { BlogpostEditComponent } from './edit';
 import { SearchResultComponent } from './result';
 import { BlogpostSearchComponent } from './search';
-import { MainAreaComponent } from '../layout/main-area.component';
-import { AuthorizationGuard } from '../account/authorization.gard';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BlogpostReadComponent } from './read';
 import { BlogpostsSummaryComponent } from './latest';
 import { UploadImagesModule } from '../files-upload/module';
 
 const routes: Routes = [
-	{
-		path: 'blogpost',
-		component: MainAreaComponent,
-		children: [
-			{
-				path: 'search',
-				component: BlogpostSearchComponent,
-				//canActivate: [AuthorizationGuard]
-			},
-			{
-				path: 'read/:id',
-				component: BlogpostReadComponent,
-				//canActivate: [AuthorizationGuard]
-			},
-			{
-				path: 'edit',
-				component: BlogpostEditComponent,
-				//canActivate: [AuthorizationGuard]
-			},
-			{
-				path: 'edit/:id',
-				component: BlogpostEditComponent,
-				//canActivate: [AuthorizationGuard]
-			}			
-		]
-	}
+    {
+        path: 'blogpost/search',
+        component: BlogpostSearchComponent,
+        //canActivate: [AuthorizationGuard]
+    },
+    {
+        path: 'blogpost/read/:id',
+        component: BlogpostReadComponent,
+    },
+    {
+        path: 'blogpost/edit',
+        component: BlogpostEditComponent,
+    },
+    {
+        path: 'blogpost/edit/:id',
+        component: BlogpostEditComponent,
+    }			
 ];
 
 @NgModule({

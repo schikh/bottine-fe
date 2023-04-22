@@ -1,46 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
-import { DeviceService } from 'src/app/device/device.service';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { BlogpostService } from './service';
 import { Blogpost } from './model';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { map } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     template: `
-<form #MyForm="ngForm">
+<form #MyForm="ngForm" *ngIf="model">
 
 <div class="container">
-
-	<!-- <div class="d-flex align-items-center">
-		<div class="flex-grow-1">
-			<h1 class="my-3">Blog post</h1>
-		</div>
-		<div>
-			<button class="btn btn-link" routerLink="/blogposts/search" style="width: 50px;">
-			<i class="fas fa-arrow-alt-circle-up fa-2x"></i>
-			</button>
-		</div>
-	</div> -->
-
-	<div class="col d-grid gap-3 m-3" *ngIf="model?.id">
-		<h2 class="">{{model.title}}</h2>
+	<div class="col d-grid gap-3 my-3" *ngIf="model.id">
+		<h2 class=" my-3">{{model.title}}</h2>
 		<div class="card-text" [innerHTML]="model.text"></div>
-		<div class="text-muted">Nov 12</div>
-        <ul class="list-group list-group-flush" *ngFor="let path of model?.paths">
-            <li class="list-group-item">
-                <img src="{{ path }}" height="80px" />
-            </li>
-        </ul>
+
+        <div class="w-auto" style="min-height: 0px;background-color: #eee;">
+            <img *ngFor="let path of paths" [src]="path" class="preview" style="width: 200px; height: 200px; object-fit: cover;" />
+        </div>        
+
+        <div class="d-flex align-items-end">
+            <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
+            <div class="ms-auto">
+            <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
+            </div>
+        </div>        
     </div>
-
-	<div class="modal-footer" *ngIf="model?.id">
-		<button type="button" class="btn btn-primary" [routerLink]="['/blogpost', 'edit', model?.id]">Editer</button>
-		<button type="button" class="btn btn-primary" routerLink="/blogpost/search">Fermer</button>		
-	</div>
-
 </div>
 
 </form>
@@ -52,11 +38,12 @@ export class BlogpostReadComponent implements OnInit {
     constructor(
         private blogpostService: BlogpostService,
         private dialogService: DialogService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private accountService: AuthService
     ) { }
 
     private modelCopy: Blogpost;
-    model?: Blogpost;
+    model: Blogpost;
     id: string;
 
     ngOnInit() {
@@ -87,7 +74,7 @@ export class BlogpostReadComponent implements OnInit {
         const model = this.model.clone();
         this.blogpostService.upsert(model).subscribe(
             () => {
-                this.dialogService.success('Blog sauvegardé');
+                this.dialogService.success('Evénement sauvegardé');
                 this.model = model;
             },
             (error: any) => {
@@ -100,16 +87,19 @@ export class BlogpostReadComponent implements OnInit {
 
     deleteBlogpost(node: Blogpost, $event: any): void {
         $event.stopPropagation();
-        this.dialogService.confirm('Information', 'Suprimer le blog ?')
+        this.dialogService.confirm('Information', "Suprimer l'événement ?")
             .then(result => result && this.delete(node));
     }
 
+    canEdit(blogpost: Blogpost) {
+        return blogpost.id && this.accountService.isLogged;
+    }
 
     private delete(node: Blogpost): void {
         this.blogpostService.delete(node.id)
             .subscribe(
-                (_: any) => {
-                    this.dialogService.success('Blog suprimée');
+                () => {
+                    this.dialogService.success('Evénement suprimée');
                 }
             );
     }
@@ -120,15 +110,19 @@ export class BlogpostReadComponent implements OnInit {
         return Object.keys(this.model).some(p => m[p] !== c[p]);
     }
 
+    get paths(): string[] {
+        return this.model.paths && []
+    }
+
     config: AngularEditorConfig = {
         editable: true,
         spellcheck: true,
-        height: '15rem',
-        minHeight: '5rem',
-        placeholder: 'Enter text here...',
+        // height: '15rem',
+        // minHeight: '5rem',
+//      placeholder: 'Enter text here...',
         translate: 'no',
         defaultParagraphSeparator: 'p',
-        defaultFontName: 'Arial',
+//        defaultFontName: 'Arial',
         toolbarHiddenButtons: [
             ['bold']
         ],

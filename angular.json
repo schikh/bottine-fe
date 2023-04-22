@@ -32,16 +32,15 @@
                 "glob": "**/*",
                 "input": "./node_modules/@kolkov/angular-editor/assets/",
                 "output": "./assets/fonts/"
-              }
+              }              
             ],
 "styles": [
-  "node_modules/bootstrap/scss/bootstrap.scss",
-//  "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-// "node_modules/font-awesome/css/font-awesome.min.css",
-"src/styles.scss"
+    //"node_modules/bootstrap-icons/font/bootstrap-icons.scss",
+    "node_modules/bootstrap/scss/bootstrap.scss",
+    "src/styles.scss"
 ],
 "scripts": [
-  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 ]
 
           },

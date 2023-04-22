@@ -7,7 +7,7 @@
 html,
 body {
     font-family: "Raleway", arial, sans-serif;
-	color: 	#151821;
+	color: #2b3050;
 	// font-size: 14px;
 	// font-family: 'Arial';
 	// -webkit-font-smoothing: antialiased;
@@ -23,13 +23,20 @@ h1 {
 
 /* Remove rounded corners */
 .card, .list-group-item, .dropdown-menu, .btn, input, select, .dropdown-list {
-	-webkit-border-radius: 0 !important;
-	-moz-border-radius: 0 !important;
-	border-radius: 0 !important;
+	-webkit-border-radius: 3px !important;
+	-moz-border-radius: 3px !important;
+	border-radius: 3px !important;
 }
 
 /* layout */
+// .main-content {
+//     min-height: 600px;
+// //    min-height: calc(100vh - 230px);
+// }
+
+
 .main-area-container {
+    min-height: 600px;    
 	display: flex;
     margin-top: 70px;
 }
@@ -38,7 +45,7 @@ h1 {
 	flex: auto;
 	overflow-x: none;
 	overflow-y: auto;
-	//height: calc(100vh - 80px);
+	min-height: calc(100vh - 142px);
 }
 
 /* Transaction search result table */
@@ -47,6 +54,16 @@ h1 {
 	// height: calc(100vh - 200px);
     // max-height: calc(100vh - 200px);
     // border: 0;
+	min-height: 200px;
+}
+
+.angular-editor-textarea
+{
+	// overflow-y: auto;
+	// height: calc(100vh - 200px);
+    // max-height: calc(100vh - 200px);
+    // border: 0;
+	min-height: 200px !important;
 }
 
 /* overide default button style */
@@ -65,6 +82,8 @@ h1 {
    // background-color: rgb(0, 4, 59) !important;
 	padding: 0;
 	height: 70px;
+    --bs-bg-opacity: 1;
+    background-color: #2b3050 !important;    
 }
 
 .navbar-brand {
@@ -89,9 +108,15 @@ h1 {
 
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link:hover {
-	color: #ff8888;
+	color: #ffff00;
 	// background-color: #048;
 }
+
+.bg-dark {
+    // --bs-bg-opacity: 1;
+    // background-color: #2b3050 !important;
+}
+
 
 /* cursor in search screen result */
 .pointer {
@@ -197,5 +222,25 @@ h1 {
 .main-title {
 	//font-family: Lobster;
 	font-size: 3em;
-	text-shadow: 2px 2px 2px #a0a0a0;
+    font-weight: bold;
+	text-shadow: 3px 3px 3px #a0a0a0;
 }
+
+.angular-editor-textarea {
+    min-height: 300px;
+  //  height: auto;
+}
+
+
+.footer {
+    color: yellow;
+    background-color: #2b3050;
+    height: 70px;
+}
+
+/* form field validation */
+.form-control.ng-touched.ng-invalid{
+    border-color: red;
+}
+
+@import "~bootstrap-icons/font/bootstrap-icons.css";

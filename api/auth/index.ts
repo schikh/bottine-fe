@@ -31,9 +31,7 @@
 
 // //require('../config/express')(app, passport);
 
-import * as express from 'express';
 import * as passport from 'passport';
-import * as exp from 'azure-function-express';
 import * as passportFacebook from 'passport-facebook';
 import * as local from 'passport-local'; //
 const LocalStrategy = local.Strategy;
@@ -152,7 +150,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         let id = null;
 
         context.log(`====================================================`);
-        context.log(`req: ${JSON.stringify(req)}`);
+        context.log(`auth req: ${JSON.stringify(req)}`);
         context.log(`====================================================`);
 
 
@@ -161,18 +159,28 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         ];
 
         // configure passport.js to use the local strategy
-        passport.use(new local.Strategy(
-            { usernameField: 'email' },
-            (email, password, done) => {
-                console.log('Inside local strategy callback')
-                // here is where you make a call to the database
-                // to find the user based on their username or email address
-                // for now, we'll just pretend we found that it was users[0]
-                const user = users[0]
-                if (email === user.email && password === user.password) {
-                    console.log('Local strategy returned true')
-                    return done(null, user)
-                }
+        // passport.use(new local.Strategy(
+        //     { usernameField: 'email' },
+        //     (email, password, done) => {
+        //         console.log('Inside local strategy callback')
+        //         // here is where you make a call to the database
+        //         // to find the user based on their username or email address
+        //         // for now, we'll just pretend we found that it was users[0]
+        //         const user = users[0]
+        //         if (email === user.email && password === user.password) {
+        //             console.log('Local strategy returned true')
+        //             return done(null, user)
+        //         }
+        //     }
+        // ));
+
+        passport.use(new LocalStrategy(
+            function(username, password, done) {
+                //if(username === "admin" && password === "admin"){
+                    return done(null, users[0]);
+                //} else {
+                //    return done("unauthorized access", false);
+                //}
             }
         ));
 
@@ -192,14 +200,14 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
         passport.initialize()
         passport.session()
 
-        // passport.authenticate('local', (err, user, info) => {
-        //     if (info) { return context.res.send(info.message)}
-        //     if (!user) { return context.res.redirect('/login'); }
-        //     // req.login(user, (err) => {
-        //     //   if (err) { return next(err); }
-        //     //   return context.res.redirect('/authrequired');
-        //     // })
-        //   })(req, context.res, next);
+        passport.authenticate('local', (err, user, info) => {
+            if (info) { return context.res.send(info.message)}
+            if (!user) { return context.res.redirect('/login'); }
+            // req.login(user, (err) => {
+            //   if (err) { return next(err); }
+            //   return context.res.redirect('/authrequired');
+            // })
+        })(req, context.res);
 
         context.log(`>>>>>>>>>> req: ${JSON.stringify(req)}`);
 

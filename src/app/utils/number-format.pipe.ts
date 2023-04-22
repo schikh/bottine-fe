@@ -12,5 +12,4 @@ export class NumberFormatPipe implements PipeTransform {
 	static transform(value: number): string {
 		return value ? value.toFixed(2).replace('.', ',') : '';
 	}
-	
 }

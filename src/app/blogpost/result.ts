@@ -1,30 +1,33 @@
-import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Blogpost, BlogpostsFilter } from './model';
-import { AccountService } from 'src/app/account/account.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
 	selector: 'xyz-search-result',
 	template: `
-<div class="row mb-2" *ngFor="let item of blogposts$ | async">
-	<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-		<div class="col p-4 d-flex flex-column position-static">
-			<h3 class="mb-0">{{item.title}}</h3>
-			<div class="mb-1 text-muted">Nov 12</div>
-			<div class="card-text mb-auto" [innerHTML]="item.text"></div>
-			<div >{{item.id }}</div>
-
-			<a [routerLink]="['/blogpost', 'read', item.id]">read</a>
-			<button class="btn btn-link" [routerLink]="['/blogpost', 'edit', item.id]" style="width: 50px;">Edit</button>
-		</div>
-	</div>
+<div class="d-grid gap-3">
+    <div class="rounded shadow-sm" *ngFor="let model of blogposts$ | async">
+        <div class="d-grid gap-3 p-3">
+            <h3>{{model.title}}</h3>
+            <div [innerHTML]="model.text.substr(0, 500)"></div>
+            <div class="d-flex align-items-end">
+                <div class="text-muted">{{model.createdBy}} - {{model.createdAtDate}}</div>
+                <div class="ms-auto">
+                <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'read', model.id]">La suite...</button>
+                <button class="btn btn-outline-primary" [routerLink]="['/blogpost', 'edit', model.id]" *ngIf="canEdit(model)">Modifier</button>
+                </div>
+            </div>
+        </div>        
+    </div>
 </div>
+
 `
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent {
 
-	constructor(private router: Router, private accountService: AccountService) { }
+	constructor(private router: Router, private accountService: AuthService) { }
 
 	@Input()
 	model: BlogpostsFilter;
@@ -34,8 +37,13 @@ export class SearchResultComponent implements OnInit {
 
 	htmlContent = '<h1>Hello Angular 14!</h1>';
 
-	ngOnInit() {
-	}
+    canEdit(blogpost: Blogpost) {
+        return blogpost.id && this.accountService.isLogged;
+    }
+
+    get isLogged() {
+        return this.accountService.isLogged;
+    }
 
 	// <!--  (click)="viewDetail(item.id, $event)"> -->
 	// viewDetail(id: number, $event: any) {

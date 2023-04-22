@@ -54,7 +54,7 @@ import { SpinnerService } from './spinner.service';
 	position: absolute;
 	top: 100px;
 	left: 50px;
-	width: 10px;
+	width: 5px;
 	height: 50px;
 	background: rgb(42, 54, 60);
 }

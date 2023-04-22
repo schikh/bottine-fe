@@ -13,7 +13,7 @@ export class SearchBlogpostResponse {
 
 export class Blogpost {
 
-	public constructor(init?: Partial<Blogpost>) {
+    public constructor(init?: Partial<Blogpost>) {
 		Object.assign(this, init);
 	}
 
@@ -29,9 +29,23 @@ export class Blogpost {
 	text: string;
 	paths: string[];
 	createdAt: string;
+	createdBy: string;
+	updatedAt: string;
+	updatedBy: string;
 
-	get timeStamp(): string {
-		return this.createdAt.replace(/(\d{4})-(\d{2})-(\d{2})T(.{8})/, '$3/$2/$1 $4');
+	get createdAtDate(): string {
+		return new Date(Date.parse(this.createdAt)).toLocaleDateString('fr-FR', 
+        {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour12: false,
+            hour: 'numeric',
+            minute: '2-digit',
+            second: '2-digit'
+          }
+          );
 	}
 
 	clone(): Blogpost {
